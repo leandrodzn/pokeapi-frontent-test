@@ -1,5 +1,5 @@
 function App() {
-  return <>Hola</>;
+  return <h1 className="text-3xl font-bold underline">Pokeapi Test</h1>;
 }
 
 export default App;
