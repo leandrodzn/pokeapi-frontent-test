@@ -49,24 +49,6 @@ La aplicación estará disponible en http://localhost:5173.
 
 - Axios: Para el consumo eficiente de la PokéAPI.
 
-## Documentación Funcional
-
-La aplicación implementa las siguientes funcionalidades solicitadas:
-
-- Paginación: Se muestran exactamente 6 Pokémon por página.
-
-- Buscador: Permite encontrar Pokémon por nombre exacto o nombres similares (filtrado local inteligente).
-
-- Diseño: Basado en el layout mínimo solicitado, incluyendo nombre del autor, buscador centrado y paginación inferior.
-
-## Documentación Técnica
-
-- Uso de Hooks: Se implementaron **useState** para el manejo del input de búsqueda,**useEffect** para sincronizar las peticiones a la API con el cambio de página y se incluyó **useRef** para debounce en la búsqueda.
-
-- Optimización de API: Debido a que la PokéAPI no tiene búsqueda parcial nativa, se implementó una lógica que descarga un conjunto de datos mayor cuando existe una consulta activa, permitiendo la búsqueda de "similares" sin sacrificar el rendimiento, ya que solo se solicitan los detalles (imagen) de los 6 resultados visibles.
-
-- Path Aliasing: Se configuraron alias (@/) para mejorar la legibilidad y mantenimiento de las rutas de importación.
-
 ## Scripts Disponibles
 
 - **npm run dev**: Inicia el servidor de desarrollo.
@@ -74,6 +56,40 @@ La aplicación implementa las siguientes funcionalidades solicitadas:
 - **npm run build**: Compila la aplicación para producción en la carpeta /dist.
 
 - **npm run lint**: Ejecuta ESLint para asegurar que se cumplen las buenas prácticas de código.
+
+## Documentación del Proyecto
+
+### Documentación Funcional
+
+La aplicación ha sido diseñada para ofrecer una experiencia de usuario fluida y eficiente, cumpliendo con los siguientes puntos:
+
+- Interfaz orincipal: Presenta el nombre del desarrollador, una barra de búsqueda prominente, una cuadrícula de 6 personajes y controles de navegación.
+
+- Sistema de búsqueda dinámica: Los usuarios pueden buscar Pokémon por su nombre exacto o términos similares. Usando filtrado inteligente, los resultados se actualizan en tiempo real.
+
+- Navegación por páginas: La visualización está limitada a 6 Pokémon por pantalla para evitar la sobrecarga de información. El sistema de paginación permite explorar todo el catálogo de forma ordenada, avanzando o retrocediendo de página de acuerdo a la cantidad de resultados y disponibilidad.
+
+- Diseño responsivo: La plataforma es totalmente adaptable, garantizando una visualización correcta tanto en dispositivos móviles como de escritorio.
+
+### Documentación Técnica
+
+El desarrollo se basó en estándares modernos de la industria para asegurar un código limpio y escalable:
+
+- Arquitectura de estado: Se implementó **Redux Toolkit** para gestionar el estado global, permitiendo una sincronización perfecta entre el buscador y la lista de Pokémon.
+
+- Lógica asíncrona: Se utilizó **createAsyncThunk** junto con **Axios** para el consumo de la PokéAPI. Se optimizó la carga de datos realizando peticiones paralelas (Promise.all) solo para los elementos visibles en pantalla.
+
+- Optimización de API: Debido a que la PokéAPI no tiene búsqueda parcial nativa, se implementó una lógica que descarga un conjunto de datos mayor cuando existe una consulta activa, permitiendo la búsqueda de "similares" sin sacrificar el rendimiento, ya que solo se solicitan los detalles (imagen) de los 6 resultados visibles.
+
+- Hooks de React: Se implementaron
+
+  - **useState** para el manejo del input de búsqueda
+  - **useEffect** para sincronizar las peticiones a la API con el cambio de página y filtros
+  - **useRef** para debounce en la búsqueda permitiendo una consulta automática
+
+- TypeScript: El proyecto utiliza TypeScript para el tipado estricto de los datos de la API y la comunicación entre componentes, minimizando errores y mejorando la mantenibilidad.
+
+- Path Aliasing: Se configuraron alias (@/) para mejorar la legibilidad y mantenimiento de las rutas de importación.
 
 ## Autor
 
