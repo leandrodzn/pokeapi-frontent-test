@@ -1,25 +1,28 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState, AppDispatch } from "@/store";
-import { fetchAll, changePage } from "@/store/pokemon";
+import { fetchAll, changePage, setSearchQuery } from "@/store/pokemon";
 
 export const usePokemonList = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { list, loading, error, offset, page, count } = useSelector(
-    (state: RootState) => state.pokemon
-  );
+  const { list, loading, error, offset, page, count, searchQuery } =
+    useSelector((state: RootState) => state.pokemon);
 
   const totalPages = Math.ceil(count / 6);
 
   useEffect(() => {
-    dispatch(fetchAll({ offset }));
-  }, [dispatch, offset]);
+    dispatch(fetchAll({ offset, searchQuery }));
+  }, [dispatch, offset, searchQuery]);
 
   const handlePageChange = (newPage: number) => {
     const isValidPage = newPage >= 1 && newPage <= totalPages;
     if (isValidPage) {
       dispatch(changePage(newPage));
     }
+  };
+
+  const handleSearchChange = (query: string) => {
+    dispatch(setSearchQuery(query));
   };
 
   return {
@@ -29,5 +32,6 @@ export const usePokemonList = () => {
     currentPage: page,
     totalPages,
     handlePageChange,
+    handleSearchChange,
   };
 };

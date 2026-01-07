@@ -14,17 +14,42 @@ export const initialPokemonState: PokemonState = {
 };
 
 const BASE_URL = "https://pokeapi.co/api/v2/pokemon";
+const ITEMS_PER_PAGE = 6;
+const TOTAL_POKEMON_COUNT = 1500; // Total number of Pokémon in the API
 
 export const fetchAll = createAsyncThunk(
   "pokemon/fetchAll",
-  async ({ offset, limit = 6 }: { offset: number; limit?: number }) => {
+  async ({
+    offset,
+    searchQuery = "",
+  }: {
+    offset: number;
+    searchQuery?: string;
+  }) => {
+    // If there's a search query, fetch a larger set to filter from client-side
+    const limit = searchQuery ? TOTAL_POKEMON_COUNT : ITEMS_PER_PAGE;
+    const currentOffset = searchQuery ? 0 : offset;
+
     const response = await axios.get(
-      `${BASE_URL}?limit=${limit}&offset=${offset}`
+      `${BASE_URL}?limit=${limit}&offset=${currentOffset}`
     );
 
     const data: PokemonListResponse = response.data;
+    let results = data.results;
 
-    const pokemonDetailsPromises = data.results.map(
+    if (searchQuery) {
+      results = results.filter((p: { name: string }) =>
+        p.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    // If there's a search query, we need to paginate the filtered results
+    const paginatedResults = searchQuery
+      ? results.slice(offset, offset + ITEMS_PER_PAGE)
+      : results;
+
+    // Set up promises to fetch details for each Pokémon
+    const pokemonDetailsPromises = paginatedResults.map(
       async (pokemon: { name: string; url: string }) => {
         const detailsResponse = await axios.get(pokemon.url);
         const details = detailsResponse.data;
@@ -39,7 +64,7 @@ export const fetchAll = createAsyncThunk(
     const detailedPokemons = await Promise.all(pokemonDetailsPromises);
 
     return {
-      count: data.count,
+      count: searchQuery ? results.length : data.count,
       results: detailedPokemons,
     };
   }
@@ -51,10 +76,12 @@ const pokemonSlice = createSlice({
   reducers: {
     setSearchQuery: (state, action: PayloadAction<string>) => {
       state.searchQuery = action.payload;
+      state.page = 1;
+      state.offset = 0;
     },
     changePage: (state, action: PayloadAction<number>) => {
       state.page = action.payload;
-      state.offset = (action.payload - 1) * 6;
+      state.offset = (action.payload - 1) * ITEMS_PER_PAGE;
     },
   },
   extraReducers: (builder) => {
