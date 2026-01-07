@@ -63,7 +63,7 @@ const pokemonSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchAll.fulfilled, (state, action) => {
-        state.loading = true;
+        state.loading = false;
         state.list = action.payload.results;
         state.count = action.payload.count;
       })

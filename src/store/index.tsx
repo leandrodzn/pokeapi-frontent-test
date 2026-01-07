@@ -1,7 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 
+import pokemonReducer from "./pokemon";
+
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    pokemon: pokemonReducer,
+  },
 });
 
 // Infer the types of the store's state and dispatch
