@@ -1,0 +1,33 @@
+INSTRUCCIONES PARA EJECUTAR LA WEB APP LOCALMENTE
+
+Proyecto: Pokémon Finder - Examen Técnico Junior Fullstack Developer
+Autor: Leandro Dzib
+
+REQUISITOS PREVIOS:
+- Node.js: Versión 22 (recomendada).
+- Gestor de paquetes: npm.
+
+PASOS PARA LA INSTALACIÓN Y EJECUCIÓN:
+
+1. DESCARGA DEL PROYECTO:
+   Clonar el repositorio desde GitHub o extraer el archivo .zip proporcionado.
+   Comando: git clone https://github.com/leandrodzn/pokeapi-frontent-test.git
+
+2. NAVEGAR AL DIRECTORIO:
+   cd pokeapi-frontent-test
+
+3. INSTALACIÓN DE DEPENDENCIAS:
+   Ejecutar el siguiente comando para instalar React, Redux Toolkit, Tailwind CSS y demás librerías:
+   npm install
+
+4. EJECUCIÓN EN MODO DESARROLLO:
+   Iniciar el servidor local con Vite:
+   npm run dev
+
+5. ACCESO A LA APLICACIÓN:
+   Una vez iniciado, abrir el navegador en la dirección: http://localhost:5173
+
+NOTAS ADICIONALES:
+- La aplicación consume la PokéAPI. Asegúrese de tener conexión a internet activa.
+- Se utilizó TypeScript y SWC para optimizar el tiempo de compilación.
+- El diseño es responsivo y cumple con el layout mínimo solicitado (Nombre, Buscador, Contenido y Paginación).

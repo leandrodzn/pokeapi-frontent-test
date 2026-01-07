@@ -1,73 +1,80 @@
-# React + TypeScript + Vite
+# Pokémon Finder - Prueba Técnica Fullstack
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Esta es una aplicación desarrollada con React que permite visualizar y buscar Pokémones utilizando la PokéAPI. El proyecto cumple con los requisitos técnicos de paginación, búsqueda funcional y diseño responsivo.
 
-Currently, two official plugins are available:
+## Requisitos del Sistema
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Para garantizar el funcionamiento correcto de la aplicación, se recomienda contar con el siguiente entorno:
 
-## React Compiler
+- Node.js: Versión 22 (seguir archivo .nvmrc)
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- Gestor de paquetes: npm versión 9.0.0 o superior.
 
-## Expanding the ESLint configuration
+- Navegador: Base Chromium, Firefox o Edge actualizado (soporte para CSS Grid y Flexbox).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Instrucciones para correr localmente
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Sigue estos pasos para ejecutar la aplicación en un entorno local:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+1. Clonar el repositorio:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+git clone https://github.com/leandrodzn/pokeapi-frontent-test.git
+cd pokeapi-frontent-test
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Instalar dependencias: Este proyecto utiliza npm como gestor de paquetes.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+npm install
+```
+
+3. Iniciar el servidor de desarrollo:
+
+```
+npm run dev
+```
+
+La aplicación estará disponible en http://localhost:5173.
+
+## Tecnologías utilizadas
+
+- React + Vite: Para un entorno de desarrollo rápido y moderno.
+
+- TypeScript: Para garantizar la calidad y robustez del código.
+
+- Redux Toolkit: Gestión del estado global de los Pokémon y la paginación.
+
+- Tailwind CSS: Para una interfaz de usuario moderna y plataforma responsiva.
+
+- Axios: Para el consumo eficiente de la PokéAPI.
+
+## Documentación Funcional
+
+La aplicación implementa las siguientes funcionalidades solicitadas:
+
+- Paginación: Se muestran exactamente 6 Pokémon por página.
+
+- Buscador: Permite encontrar Pokémon por nombre exacto o nombres similares (filtrado local inteligente).
+
+- Diseño: Basado en el layout mínimo solicitado, incluyendo nombre del autor, buscador centrado y paginación inferior.
+
+## Documentación Técnica
+
+- Uso de Hooks: Se implementaron **useState** para el manejo del input de búsqueda,**useEffect** para sincronizar las peticiones a la API con el cambio de página y se incluyó **useRef** para debounce en la búsqueda.
+
+- Optimización de API: Debido a que la PokéAPI no tiene búsqueda parcial nativa, se implementó una lógica que descarga un conjunto de datos mayor cuando existe una consulta activa, permitiendo la búsqueda de "similares" sin sacrificar el rendimiento, ya que solo se solicitan los detalles (imagen) de los 6 resultados visibles.
+
+- Path Aliasing: Se configuraron alias (@/) para mejorar la legibilidad y mantenimiento de las rutas de importación.
+
+## Scripts Disponibles
+
+- **npm run dev**: Inicia el servidor de desarrollo.
+
+- **npm run build**: Compila la aplicación para producción en la carpeta /dist.
+
+- **npm run lint**: Ejecuta ESLint para asegurar que se cumplen las buenas prácticas de código.
+
+## Autor
+
+Leandro Dzib
