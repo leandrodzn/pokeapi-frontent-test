@@ -91,6 +91,47 @@ El desarrollo se basó en estándares modernos de la industria para asegurar un 
 
 - Path Aliasing: Se configuraron alias (@/) para mejorar la legibilidad y mantenimiento de las rutas de importación.
 
+## Visualización de Arquitectura
+
+### Diagrama de Flujo de Datos
+
+Este diagrama detalla el ciclo de vida asíncrono implementado para la gestión de datos:
+
+- Gestión asíncrona: Se utiliza createAsyncThunk para realizar peticiones a la PokéAPI, permitiendo manejar estados de carga, éxito y error.
+
+- Optimización de carga: En lugar de realizar peticiones secuenciales, el flujo utiliza Promise.all para obtener los detalles e imágenes de los 6 Pokémon en paralelo, reduciendo significativamente el tiempo de respuesta de la interfaz.
+
+- Sincronización del estado: El reducer procesa la información final y actualiza el Store, lo que dispara una re-renderización automática en los componentes suscritos, garantizando que la interfaz tiene los datos más recientes.
+
+graph LR
+UI[Componente UI] -->|1. Dispatch fetchAll| Thunk[AsyncThunk]
+Thunk -->|2. Request| API[PokéAPI]
+API -->|3. Response List| Thunk
+Thunk -->|4. Promise.all Details| API
+API -->|5. Details Response| Thunk
+Thunk -->|6. Payload| Reducer[Reducer]
+Reducer -->|7. New State| UI
+
+### Diagrama de Arquitectura de Componentes
+
+Representa la jerarquía y organización modular de la aplicación siguiendo el layout solicitado:
+
+- Desacoplamiento de lógica: La aplicación se divide en componentes especializados (SearchBar, PokemonList, Pagination), facilitando el mantenimiento y la legibilidad del código.
+
+- Comunicación vía Store: Se evita el "Prop Drilling" utilizando Redux como única fuente de verdad. El SearchBar y la Pagination despachan acciones al Store, mientras que el PokemonList (Contenido) reacciona a esos cambios para mostrar el los pokemones correctamente.
+
+- Escalabilidad: Esta estructura permite cumplir con la responsividad, ya que cada componente puede ajustar su estilo de forma independiente mediante Tailwind CSS o CSS puro sin afectar la lógica global.
+
+graph TD
+App[App / ListPage]
+App --> Search[SearchBar]
+App --> Grid[PokemonList]
+App --> Pagination
+
+    Search -->|searchQuery| Store[Redux Store]
+    Pagination -->|page change| Store
+    Store -->|state update| Grid
+
 ## Autor
 
 Leandro Dzib
