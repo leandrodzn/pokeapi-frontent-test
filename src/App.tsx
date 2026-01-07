@@ -1,5 +1,7 @@
+import { ListPage } from "@/pages/ListPage.tsx";
+
 function App() {
-  return <h1 className="text-3xl font-bold underline">Pokeapi Test</h1>;
+  return <ListPage />;
 }
 
 export default App;
