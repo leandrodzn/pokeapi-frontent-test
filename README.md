@@ -103,14 +103,7 @@ Este diagrama detalla el ciclo de vida asíncrono implementado para la gestión 
 
 - Sincronización del estado: El reducer procesa la información final y actualiza el Store, lo que dispara una re-renderización automática en los componentes suscritos, garantizando que la interfaz tiene los datos más recientes.
 
-graph LR
-UI[Componente UI] -->|1. Dispatch fetchAll| Thunk[AsyncThunk]
-Thunk -->|2. Request| API[PokéAPI]
-API -->|3. Response List| Thunk
-Thunk -->|4. Promise.all Details| API
-API -->|5. Details Response| Thunk
-Thunk -->|6. Payload| Reducer[Reducer]
-Reducer -->|7. New State| UI
+![Diagrama de flujo de datos](flow-diagram.png)
 
 ### Diagrama de Arquitectura de Componentes
 
@@ -122,15 +115,7 @@ Representa la jerarquía y organización modular de la aplicación siguiendo el 
 
 - Escalabilidad: Esta estructura permite cumplir con la responsividad, ya que cada componente puede ajustar su estilo de forma independiente mediante Tailwind CSS o CSS puro sin afectar la lógica global.
 
-graph TD
-App[App / ListPage]
-App --> Search[SearchBar]
-App --> Grid[PokemonList]
-App --> Pagination
-
-    Search -->|searchQuery| Store[Redux Store]
-    Pagination -->|page change| Store
-    Store -->|state update| Grid
+![Diagrama de componentes](components-diagram.png)
 
 ## Autor
 
