@@ -18,7 +18,7 @@ export const ListPage = () => {
   return (
     <main className="min-h-screen py-8">
       <h1 className="text-3xl font-bold text-center mb-6">Lista de Pokémon</h1>
-      <SearchBar onSearch={handleSearchChange} />
+      <SearchBar onSearch={handleSearchChange} loading={loading} />
       <PokemonList list={pokemons} loading={loading} error={error} />
       <div className="mt-8 flex justify-center">
         <Pagination
