@@ -23,7 +23,6 @@ export const Pagination = ({
     isLastPage || loading ? { pointerEvents: "none", opacity: 0.5 } : {};
 
   const handlePrevClick = (event: MouseEvent<HTMLAnchorElement>) => {
-    console.log("Prev clicked");
     event.preventDefault();
     if (!isFirstPage && onPageChange) {
       onPageChange(currentPage - 1);
